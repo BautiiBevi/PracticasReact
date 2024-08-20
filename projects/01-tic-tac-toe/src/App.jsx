@@ -3,6 +3,7 @@ import { Square } from "./components/Square.jsx"
 import{ TURNS} from "./constants.js"
 import { checkWinnerFrom, checkEndGame} from "./logic/board.js"
 import { WinnerModal } from "./components/WinnerModal.jsx"
+import { GameBoard } from "./components/GameBoard.jsx"
 
 function App() {
   const [board, setBoard] = useState(Array(9).fill(null))
@@ -18,9 +19,11 @@ function App() {
 
   const updateBoard = (index)=>{
     if(board[index] || winner) return
+
     const newBoard = [...board]
     newBoard[index] = turn
     setBoard(newBoard)
+    
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
     setTurn(newTurn)
     const newWinner = checkWinnerFrom(newBoard)
@@ -33,21 +36,7 @@ function App() {
   return(
     <main className="board">
       <h1>Tic-Tac-Toe</h1>
-      <section className="game">
-        {
-          board.map((_, index) =>{
-            return(
-              <Square
-                key={index}
-                index = {index}
-                updateBoard={updateBoard}
-              >
-              {board[index]}
-              </Square>
-            )
-          })
-        }
-      </section>
+      <GameBoard board={board} updateBoard={updateBoard} />
       <section className="turn">
         <Square isSelected={turn === TURNS.X}>
           {TURNS.X}
