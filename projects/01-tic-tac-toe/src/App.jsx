@@ -1,9 +1,9 @@
 import { useState } from "react"
-import { Square } from "./components/Square.jsx"
 import{ TURNS} from "./constants.js"
 import { checkWinnerFrom, checkEndGame} from "./logic/board.js"
 import { WinnerModal } from "./components/WinnerModal.jsx"
 import { GameBoard } from "./components/GameBoard.jsx"
+import { TurnIndicator } from "./components/TurnIndicator.jsx"
 
 function App() {
   const [board, setBoard] = useState(Array(9).fill(null))
@@ -37,14 +37,7 @@ function App() {
     <main className="board">
       <h1>Tic-Tac-Toe</h1>
       <GameBoard board={board} updateBoard={updateBoard} />
-      <section className="turn">
-        <Square isSelected={turn === TURNS.X}>
-          {TURNS.X}
-        </Square>
-        <Square isSelected={turn === TURNS.O}>
-          {TURNS.O}
-        </Square>         
-      </section>
+      <TurnIndicator turn={turn}/>
       <WinnerModal resetGame={resetGame} winner={winner}/>
     </main>
   )
